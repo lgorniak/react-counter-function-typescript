@@ -1,9 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import Counter from "./components/counter";
 import reportWebVitals from "./reportWebVitals";
-
 import { createRoot } from "react-dom/client";
 
 const container = document.getElementById("root") as HTMLElement;
