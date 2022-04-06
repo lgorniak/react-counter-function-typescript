@@ -20,6 +20,13 @@ const iterateCounter = (
 	if (counter) customHook({ number: counter.number + 1 });
 };
 
+
+const getBadgeClasses = (counter: Count | null): string => {
+	let classes = "badge m-2 bg-";
+	classes += counter?.number === 0 ? "warning" : "info";
+	return classes;
+};
+
 const Counter = (): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
 
@@ -29,8 +36,12 @@ const Counter = (): JSX.Element => {
 
 	return (
 		<>
-			<h1>{formatCounter(counter)}</h1>
-			<button onClick={() => iterateCounter(counter, setCounter)}>
+			<span className={getBadgeClasses(counter)}>{formatCounter(counter)}</span>
+
+			<button
+				className="btn btn-success btn-sm"
+				onClick={() => iterateCounter(counter, setCounter)}
+			>
 				Increment
 			</button>
 		</>

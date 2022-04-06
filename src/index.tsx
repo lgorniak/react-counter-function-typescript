@@ -3,6 +3,7 @@ import "./index.css";
 import Counter from "./components/counter";
 import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
