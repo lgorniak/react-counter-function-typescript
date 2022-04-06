@@ -1,17 +1,32 @@
 import React, { useState } from "react";
+import { Count } from "../types/count";
 
 function Counter() {
-	const [count, setCounter] = useState(0);
+	const [counter, setCounter] = useState<Count | null>(null);
 
 	const formatCounter = () => {
-		return count === 0 ? "Zero" : count;
+		let value: string | number;
+
+		counter
+			? counter.number === 0
+				? (value = `Zero`)
+				: (value = counter.number)
+			: (value = `State Object not set`);
+
+		return value;
+	};
+
+	const iterateCounter = () => {
+		counter
+			? setCounter({ number: counter.number + 1 })
+			: setCounter({ number: 0 });
 	};
 
 	return (
-		<React.Fragment>
+		<>
 			<h1>{formatCounter()}</h1>
-			<button onClick={() => setCounter(count + 1)}>Increment</button>
-		</React.Fragment>
+			<button onClick={iterateCounter}>Increment</button>
+		</>
 	);
 }
 
