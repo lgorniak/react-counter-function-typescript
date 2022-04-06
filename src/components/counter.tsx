@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Count } from "../types/count";
 
 function Counter() {
 	const [counter, setCounter] = useState<Count | null>(null);
 
+	useEffect(() => {
+		setCounter({ number: 0 });
+	}, []);
+
 	const formatCounter = () => {
-		let value: string | number;
+		let counterValue: string | number;
 
 		counter
 			? counter.number === 0
-				? (value = `Zero`)
-				: (value = counter.number)
-			: (value = `State Object not set`);
+				? (counterValue = `Zero`)
+				: (counterValue = counter.number)
+			: (counterValue = `State Object not set`);
 
-		return value;
+		return counterValue;
 	};
 
 	const iterateCounter = () => {
-		counter
-			? setCounter({ number: counter.number + 1 })
-			: setCounter({ number: 0 });
+		if (counter) setCounter({ number: counter.number + 1 });
 	};
 
 	return (
