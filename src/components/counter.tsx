@@ -8,7 +8,7 @@ const formatCounter = (counter: Count | null): string | number => {
 		? counter.number === 0
 			? (counterValue = `Zero`)
 			: (counterValue = counter.number)
-		: (counterValue = `State Object not set`);
+		: (counterValue = `Counter Object not set`);
 
 	return counterValue;
 };
@@ -17,9 +17,10 @@ const iterateCounter = (
 	counter: Count | null,
 	customHook: React.Dispatch<React.SetStateAction<Count | null>>
 ) => {
-	if (counter) customHook({ number: counter.number + 1 });
+	if (counter) {
+		customHook({ number: counter.number + 1, tags: counter.tags });
+	}
 };
-
 
 const getBadgeClasses = (counter: Count | null): string => {
 	let classes = "badge m-2 bg-";
@@ -31,7 +32,7 @@ const Counter = (): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
 
 	useEffect((): void => {
-		setCounter({ number: 0 });
+		setCounter({ number: 0, tags: ["tag1", "tag2", "tag3"] });
 	}, []);
 
 	return (
@@ -44,6 +45,9 @@ const Counter = (): JSX.Element => {
 			>
 				Increment
 			</button>
+			<ul>
+				{counter ? counter.tags.map((tag) => <li key={tag}>{tag}</li>) : null}
+			</ul>
 		</>
 	);
 };
