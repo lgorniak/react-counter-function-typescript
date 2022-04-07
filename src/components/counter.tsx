@@ -28,6 +28,13 @@ const getBadgeClasses = (counter: Count | null): string => {
 	return classes;
 };
 
+const renderListItems = (
+	counter: Count | null
+): JSX.Element | JSX.Element[] | null => {
+	if (counter && counter.tags.length === 0) return <p>There are not Tags"</p>;
+	return counter && counter.tags.map((tag) => <li key={tag}>{tag}</li>);
+};
+
 const Counter = (): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
 
@@ -38,16 +45,13 @@ const Counter = (): JSX.Element => {
 	return (
 		<>
 			<span className={getBadgeClasses(counter)}>{formatCounter(counter)}</span>
-
 			<button
 				className="btn btn-success btn-sm"
 				onClick={() => iterateCounter(counter, setCounter)}
 			>
 				Increment
 			</button>
-			<ul>
-				{counter ? counter.tags.map((tag) => <li key={tag}>{tag}</li>) : null}
-			</ul>
+			<ul>{renderListItems(counter)}</ul>
 		</>
 	);
 };
