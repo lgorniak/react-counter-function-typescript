@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Count } from "../types/count";
+import { Count } from "./count";
+
+interface Props {
+	value: number;
+	selected: boolean;
+	tags: string[];
+}
 
 const formatCounter = (counter: Count | null): string | number => {
 	let counterValue: string | number;
 
 	counter
-		? counter.number === 0
+		? counter.value === 0
 			? (counterValue = `Zero`)
-			: (counterValue = counter.number)
+			: (counterValue = counter.value)
 		: (counterValue = `Counter Object not set`);
 
 	return counterValue;
@@ -18,13 +24,17 @@ const iterateCounter = (
 	customHook: React.Dispatch<React.SetStateAction<Count | null>>
 ) => {
 	if (counter) {
-		customHook({ number: counter.number + 1, tags: counter.tags });
+		customHook({
+			value: counter.value + 1,
+			selected: counter.selected,
+			tags: counter.tags,
+		});
 	}
 };
 
 const getBadgeClasses = (counter: Count | null): string => {
 	let classes = "badge m-2 bg-";
-	classes += counter?.number === 0 ? "warning" : "info";
+	classes += counter?.value === 0 ? "warning" : "info";
 	return classes;
 };
 
@@ -32,15 +42,16 @@ const renderListItems = (
 	counter: Count | null
 ): JSX.Element | JSX.Element[] | null => {
 	if (counter && counter.tags.length === 0) return <p>There are not Tags"</p>;
-	return counter && counter.tags.map((tag) => <li key={tag}>{tag}</li>);
+	return counter && counter.tags.map((tag) => <span>{tag} </span>);
 };
 
-const Counter = (): JSX.Element => {
+const Counter = (props: Props): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
+	const { value, tags, selected } = props;
 
 	useEffect((): void => {
-		setCounter({ number: 0, tags: ["tag1", "tag2", "tag3"] });
-	}, []);
+		setCounter({ value, selected, tags });
+	}, [tags, selected, value]);
 
 	return (
 		<>
@@ -51,7 +62,7 @@ const Counter = (): JSX.Element => {
 			>
 				Increment
 			</button>
-			<ul>{renderListItems(counter)}</ul>
+			<div>{renderListItems(counter)}</div>
 		</>
 	);
 };

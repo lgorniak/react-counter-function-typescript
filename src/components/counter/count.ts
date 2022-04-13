@@ -1,4 +1,5 @@
 export interface Count {
-	number: number;
+	value: number;
+	selected: boolean;
 	tags: string[];
 }
