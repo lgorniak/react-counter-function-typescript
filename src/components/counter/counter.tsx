@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Count } from "./count";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
-	value: number;
-	selected: boolean;
-	tags: string[];
+	data: Count;
+	id: number;
+	onDelete: (id: number) => void;
 }
 
 const formatCounter = (counter: Count | null): string | number => {
@@ -42,16 +43,18 @@ const renderListItems = (
 	counter: Count | null
 ): JSX.Element | JSX.Element[] | null => {
 	if (counter && counter.tags.length === 0) return <p>There are not Tags"</p>;
-	return counter && counter.tags.map((tag) => <span>{tag} </span>);
+	return (
+		counter && counter.tags.map((tag) => <span key={uuidv4()}>{tag} </span>)
+	);
 };
 
 const Counter = (props: Props): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
-	const { value, tags, selected } = props;
+	const { id, onDelete, data } = props;
 
 	useEffect((): void => {
-		setCounter({ value, selected, tags });
-	}, [tags, selected, value]);
+		setCounter(data);
+	}, [data]);
 
 	return (
 		<>
@@ -61,6 +64,9 @@ const Counter = (props: Props): JSX.Element => {
 				onClick={() => iterateCounter(counter, setCounter)}
 			>
 				Increment
+			</button>
+			<button onClick={() => onDelete(id)} className="btn btn-danger btn-sm">
+				delete
 			</button>
 			<div>{renderListItems(counter)}</div>
 		</>

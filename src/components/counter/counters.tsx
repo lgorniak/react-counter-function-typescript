@@ -29,18 +29,21 @@ const Counters = (): JSX.Element => {
 		]);
 	}, []);
 
+	const handleDelete = (id: number): void => {
+		const reducedCounters = counters.filter((c) => c.id !== id);
+		setCounters(reducedCounters);
+	};
+
 	return (
 		<>
 			{counters.map((counter) => {
 				const { id, data } = counter;
-
-				console.log(counter);
 				return (
 					<Counter
 						key={id}
-						value={data.value}
-						selected={data.selected}
-						tags={data.tags}
+						id={id}
+						data={data}
+						onDelete={handleDelete}
 					></Counter>
 				);
 			})}
