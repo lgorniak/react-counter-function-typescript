@@ -23,12 +23,14 @@ const iterateCounter = (
 	counter: Count | null,
 	customHook: React.Dispatch<React.SetStateAction<Count | null>>
 ) => {
+
 	if (counter) {
+		const { id, value, selected, tags } = counter;
 		customHook({
-			id: counter.id,
-			value: counter.value + 1,
-			selected: counter.selected,
-			tags: counter.tags,
+			id,
+			value: value + 1,
+			selected,
+			tags: tags,
 		});
 	}
 };

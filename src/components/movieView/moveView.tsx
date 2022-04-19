@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getMovies } from "../../services/fakeMovieService";
 import { Movie } from "./movie";
-//import "./movieView.css";
 
 const handleDelete = (
 	movies: Movie[],
