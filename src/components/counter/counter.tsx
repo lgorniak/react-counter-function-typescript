@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 
 interface Props {
 	data: Count;
-	id: number;
 	onDelete: (id: number) => void;
 }
 
@@ -26,6 +25,7 @@ const iterateCounter = (
 ) => {
 	if (counter) {
 		customHook({
+			id: counter.id,
 			value: counter.value + 1,
 			selected: counter.selected,
 			tags: counter.tags,
@@ -50,7 +50,7 @@ const renderListItems = (
 
 const Counter = (props: Props): JSX.Element => {
 	const [counter, setCounter] = useState<Count | null>(null);
-	const { id, onDelete, data } = props;
+	const { onDelete, data } = props;
 
 	useEffect((): void => {
 		setCounter(data);
@@ -65,7 +65,10 @@ const Counter = (props: Props): JSX.Element => {
 			>
 				Increment
 			</button>
-			<button onClick={() => onDelete(id)} className="btn btn-danger btn-sm">
+			<button
+				onClick={() => onDelete(data.id)}
+				className="btn btn-danger btn-sm"
+			>
 				delete
 			</button>
 			<div>{renderListItems(counter)}</div>
