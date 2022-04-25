@@ -30,6 +30,24 @@ const Counters = (): JSX.Element => {
 		]);
 	}, []);
 
+	const handleReset = (): void => {
+		const resetCounters = counters.map((counter) => {
+			counter.data.value = 0;
+			return counter;
+		});
+		setCounters(resetCounters);
+	};
+
+	const iterateCounter = (id: number): void => {
+		const iteratedCounter = counters.map((counter) => {
+			if (counter.data.id === id) {
+				counter.data.value++;
+			}
+			return counter;
+		});
+		setCounters(iteratedCounter);
+	};
+
 	const handleDelete = (id: number): void => {
 		const reducedCounters = counters.filter((c) => c.data.id !== id);
 		setCounters(reducedCounters);
@@ -37,10 +55,18 @@ const Counters = (): JSX.Element => {
 
 	return (
 		<>
+			<button onClick={handleReset} className="btn btn-success btn-sm">
+				reset
+			</button>
 			{counters.map((counter) => {
 				const { data } = counter;
 				return (
-					<Counter key={data.id} data={data} onDelete={handleDelete}></Counter>
+					<Counter
+						key={data.id}
+						data={data}
+						onDelete={handleDelete}
+						onIterate={iterateCounter}
+					></Counter>
 				);
 			})}
 		</>

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Count } from "./count";
 import { v4 as uuidv4 } from "uuid";
 
 interface Props {
 	data: Count;
 	onDelete: (id: number) => void;
+	onIterate: (id: number) => void;
 }
 
 const formatCounter = (counter: Count | null): string | number => {
@@ -17,22 +18,6 @@ const formatCounter = (counter: Count | null): string | number => {
 		: (counterValue = `Counter Object not set`);
 
 	return counterValue;
-};
-
-const iterateCounter = (
-	counter: Count | null,
-	customHook: React.Dispatch<React.SetStateAction<Count | null>>
-) => {
-
-	if (counter) {
-		const { id, value, selected, tags } = counter;
-		customHook({
-			id,
-			value: value + 1,
-			selected,
-			tags: tags,
-		});
-	}
 };
 
 const getBadgeClasses = (counter: Count | null): string => {
@@ -51,19 +36,14 @@ const renderListItems = (
 };
 
 const Counter = (props: Props): JSX.Element => {
-	const [counter, setCounter] = useState<Count | null>(null);
-	const { onDelete, data } = props;
-
-	useEffect((): void => {
-		setCounter(data);
-	}, [data]);
+	const { onDelete, onIterate, data } = props;
 
 	return (
 		<>
-			<span className={getBadgeClasses(counter)}>{formatCounter(counter)}</span>
+			<span className={getBadgeClasses(data)}>{formatCounter(data)}</span>
 			<button
 				className="btn btn-success btn-sm"
-				onClick={() => iterateCounter(counter, setCounter)}
+				onClick={() => onIterate(data.id)}
 			>
 				Increment
 			</button>
@@ -73,7 +53,7 @@ const Counter = (props: Props): JSX.Element => {
 			>
 				delete
 			</button>
-			<div>{renderListItems(counter)}</div>
+			<div>{renderListItems(data)}</div>
 		</>
 	);
 };

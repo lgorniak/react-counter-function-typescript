@@ -6,6 +6,7 @@ interface Props {
 	onDelete: (id: string) => void;
 }
 
+//const TableBody = <T,>(props: Props<T>): JSX.Element => {
 const TableBody = (props: Props): JSX.Element => {
 	return (
 		<tbody>

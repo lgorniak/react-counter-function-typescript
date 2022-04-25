@@ -1,16 +1,19 @@
 import React from "react";
+import { Column } from "./Column";
 
-interface Props {}
+import { v4 as uuidv4 } from "uuid";
 
-const TableHeader = (props: Props): JSX.Element => {
+interface Props<T> {
+	columns: T[];
+}
+
+const TableHeader = <T extends Column>(props: Props<T>): JSX.Element => {
 	return (
 		<thead>
 			<tr className="table-primary">
-				<th>Title</th>
-				<th>Genre</th>
-				<th>Rate</th>
-				<th>Stock</th>
-				<th></th>
+				{props.columns.map((column: T) => (
+					<th key={uuidv4()}>{column.label}</th>
+				))}
 			</tr>
 		</thead>
 	);

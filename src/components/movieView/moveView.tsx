@@ -14,11 +14,20 @@ const MovieView = (): JSX.Element => {
 		setMovies(filteredMovies);
 	};
 
+	
+	const columns = [
+		{ label: "Title", path: "title" },
+		{ label: "Genre", path: "genre.name" },
+		{ label: "Stock", path: "dailyRentalRate" },
+		{ label: "Rate", path: "numberInStock" },
+		{ label: "", path: "" },
+	];
+
 	return (
 		<>
 			<div>Showing {movies.length} in the database</div>
 			<table className="table">
-				<TableHeader />
+				<TableHeader columns={columns} />
 				<TableBody data={movies} onDelete={handleDelete} />
 			</table>
 		</>
