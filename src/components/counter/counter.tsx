@@ -21,8 +21,8 @@ const formatCounter = (counter: Count | null): string | number => {
 };
 
 const getBadgeClasses = (counter: Count | null): string => {
-	let classes = "badge m-2 bg-";
-	classes += counter?.value === 0 ? "warning" : "info";
+	let classes = "badge m-1 ms-0 bg-";
+	classes += counter?.value === 0 ? "warning" : "dark";
 	return classes;
 };
 
@@ -40,20 +40,26 @@ const Counter = (props: Props): JSX.Element => {
 
 	return (
 		<>
-			<span className={getBadgeClasses(data)}>{formatCounter(data)}</span>
-			<button
-				className="btn btn-success btn-sm"
-				onClick={() => onIterate(data.id)}
-			>
-				Increment
-			</button>
-			<button
-				onClick={() => onDelete(data.id)}
-				className="btn btn-danger btn-sm"
-			>
-				delete
-			</button>
-			<div>{renderListItems(data)}</div>
+			<div className="d-flex justify-content-between mt-2">
+				<div>
+					<span className={getBadgeClasses(data)}>{formatCounter(data)}</span>
+					{renderListItems(data)}
+				</div>
+				<div>
+					<button
+						className="btn btn-success btn-sm me-1"
+						onClick={() => onIterate(data.id)}
+					>
+						+
+					</button>
+					<button
+						onClick={() => onDelete(data.id)}
+						className="btn btn-danger btn-sm me-2"
+					>
+						x
+					</button>
+				</div>
+			</div>
 		</>
 	);
 };

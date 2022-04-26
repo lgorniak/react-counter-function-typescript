@@ -1,7 +1,5 @@
 import React from "react";
 import "./index.css";
-import Counters from "./components/counters/counters";
-import MovieView from "./components/movieView/moveView";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";

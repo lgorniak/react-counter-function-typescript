@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Counter from "../counter/counter";
 import { CountersType } from "./countersType";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import "./counters.css";
 
 const Counters = (): JSX.Element => {
 	const [counters, setCounters] = useState<CountersType[]>([]);
@@ -55,9 +58,18 @@ const Counters = (): JSX.Element => {
 
 	return (
 		<>
-			<button onClick={handleReset} className="btn btn-success btn-sm">
-				reset
-			</button>
+			<div className="shopping_header bg-dark p-2 d-flex justify-content-between align-items-center">
+				<FontAwesomeIcon
+					icon={faShoppingCart}
+					size="lg"
+					className="icon-color"
+				/>
+				Your Cart
+				<button onClick={handleReset} className="btn btn-danger btn-sm">
+					reset
+				</button>
+			</div>
+
 			{counters.map((counter) => {
 				const { data } = counter;
 				return (

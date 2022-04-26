@@ -10,7 +10,7 @@ interface Props<T> {
 const TableHeader = <T extends Column>(props: Props<T>): JSX.Element => {
 	return (
 		<thead>
-			<tr className="table-primary">
+			<tr className="table-dark">
 				{props.columns.map((column: T) => (
 					<th key={uuidv4()}>{column.label}</th>
 				))}

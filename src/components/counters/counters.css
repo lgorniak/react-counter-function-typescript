@@ -1,0 +1,13 @@
+.shopping_header {
+    color: #FFFFFF;
+    font-weight: 700;
+    /* height: 43px; */
+}
+
+.counter_flags  {
+    flex-shrink: 0;
+}
+
+.badge {
+    min-width: 45px;
+}
