@@ -1,16 +1,15 @@
 import React from "react";
 import { Movie } from "./movie";
 
-interface Props {
-	data: Movie[];
+interface Props<T> {
+	data: T[];
 	onDelete: (id: string) => void;
 }
 
-//const TableBody = <T,>(props: Props<T>): JSX.Element => {
-const TableBody = (props: Props): JSX.Element => {
+const TableBody = <T extends Movie>(props: Props<T>): JSX.Element => {
 	return (
 		<tbody>
-			{props.data.map((movie: Movie) => {
+			{props.data.map((movie: T) => {
 				const { _id, title, genre, dailyRentalRate, numberInStock } = movie;
 				return (
 					<tr key={_id}>
